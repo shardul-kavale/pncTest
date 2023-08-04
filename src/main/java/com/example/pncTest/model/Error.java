@@ -4,12 +4,22 @@ public class Error {
     public String status;
     public int errorCode;
     public String errorType;
-    public String description;
+    public String[] description;
 
+
+    //single error constructor
     public Error(String status, int errorCode, String errorType, String description){
         this.errorCode=errorCode;
         this.status=status;
         this.errorType=errorType;
-        this.description=description;
+        this.description=new String[] {description};
+    }
+
+    //multiple error constructor. (for multiple validation errors)
+    public Error(String status, int errorCode, String errorType, String[] description) {
+        this.errorCode=errorCode;
+        this.status=status;
+        this.errorType=errorType;
+        this.description = description;
     }
 }

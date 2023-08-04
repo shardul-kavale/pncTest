@@ -22,22 +22,29 @@ public class IpTrackerService {
 
 
     public IPLookupPojo lookupIP(String ipAddress) throws IOException {
+
         String url = "http://ip-api.com/json/" + ipAddress;
-
-
         URL apiUrl = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) apiUrl.openConnection();
-        con.setRequestMethod("GET");
 
-        if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-                // Deserialize the JSON response into the IPLookupPojo class
-                return objectMapper.readValue(reader, IPLookupPojo.class);
+        try{
+            HttpURLConnection con = (HttpURLConnection) apiUrl.openConnection();
+            con.setRequestMethod("GET");
+
+            if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                    // Deserialize the JSON response into the IPLookupPojo class
+                    return objectMapper.readValue(reader, IPLookupPojo.class);
+                }
+            } else {
+                // Handle the error response here if needed
+                throw new IOException("Request failed with status: " + con.getResponseCode());
             }
-        } else {
-            // Handle the error response here if needed
-            throw new IOException("Request failed with status: " + con.getResponseCode());
+
+        }catch (IOException e){
+            throw new IOException("Error connecting to the IP API service: " + e.getMessage(), e);
         }
+
+
     }
 
 
