@@ -40,4 +40,8 @@ public class IPLookupPojo {
     public String getCity(){
         return city;
     }
+
+    public String getStatus() {
+        return status;
+    }
 }

@@ -17,8 +17,6 @@ import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 @RestController
 public class UserRegistrationController {

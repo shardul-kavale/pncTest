@@ -26,14 +26,6 @@ public class RegistrationServiceTest {
     @InjectMocks
     private RegistrationService registrationService;
 
-
-    //initialise our class so we can test it
-    @BeforeEach
-    public void setup() {
-        registrationService = new RegistrationService(ipTrackerService);
-    }
-
-
     @Test
     public void testRegisterUser_ValidRequest_Success() throws IOException {
         // Arrange
