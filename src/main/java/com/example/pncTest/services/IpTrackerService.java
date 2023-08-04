@@ -14,8 +14,8 @@ public class IpTrackerService {
 
     private final ObjectMapper objectMapper;
 
-    public IpTrackerService() {
-        this.objectMapper = new ObjectMapper();
+    public IpTrackerService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
 
@@ -41,9 +41,5 @@ public class IpTrackerService {
         }catch (IOException e){
             throw new IOException("Error connecting to the IP API service: " + e.getMessage(), e);
         }
-
-
     }
-
-
 }

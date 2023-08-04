@@ -9,7 +9,6 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,34 +24,44 @@ public class RegistrationService {
     public ResponseData registerUser(UserRequest request) throws IOException {
 
         //IP validation:
-        InetAddressValidator validator = InetAddressValidator.getInstance();
+        validateIpAddress(request.getIpAddress());
 
-        if(!validator.isValid(request.getIpAddress())){
-            throw new IllegalArgumentException("INVALID_IP");
-        }
-
-        //find city and country by calling the service
-        String city;
-        String country;
-        try {
-            IPLookupPojo ip = ipTrackerService.lookupIP((request.getIpAddress()));
-            country=ip.getCountry();
-            city= ip.getCity();
-
-        } catch (IOException e) {
-              throw e; //forward the exception to the controller where we handle it
-        }
-
-        if (!country.equals("Canada")) {
-            throw new IllegalArgumentException("INELIGIBLE");
-        }
+        IPLookupPojo ip = lookupIpAddress(request.getIpAddress());
+        validateCountry(ip.getCountry());
 
         String uuid = UUID.randomUUID().toString();
-
-        //simulate user registration/creation:
-        User u1 = new User(uuid, request.username, city);
+        User newUser = createUser(uuid, request.getUsername(), ip.getCity());
 
         //pass the created user along with messages and status to the controller
-        return new ResponseData(Status.SUCCESS, "User has been registered", u1);
+        return new ResponseData(Status.SUCCESS, "User has been registered", newUser);
+    }
+
+    //check if IP valid
+    private void validateIpAddress(String ipAddress) {
+        InetAddressValidator validator = InetAddressValidator.getInstance();
+        if (!validator.isValid(ipAddress)) {
+            throw new IllegalArgumentException("INVALID_IP");
+        }
+    }
+
+    //call ipTracker service which deals with external API
+    private IPLookupPojo lookupIpAddress(String ipAddress) throws IOException {
+        try {
+            return ipTrackerService.lookupIP(ipAddress);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
+    //check if user is from Canada
+    private void validateCountry(String country) {
+        if (!"Canada".equals(country)) {
+            throw new SecurityException("INELIGIBLE");
+        }
+    }
+
+    //simulate user registration/creation:
+    private User createUser(String uuid, String username, String city) {
+        return new User(uuid, username, city);
     }
 }
