@@ -15,4 +15,13 @@ public class ResponseData {
     }
 
 
+    public String getMessage() {
+        return message;
+    }
+    public User getUser() {
+        return user;
+    }
+    public Status getStatus() {
+        return status;
+    }
 }

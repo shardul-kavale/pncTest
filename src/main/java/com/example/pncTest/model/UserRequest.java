@@ -21,7 +21,7 @@ public class UserRequest {
         return password;
     }
     public String getUsername(){
-        return password;
+        return username;
     }
     public String getIpAddress(){
         return ipAddress;
@@ -41,10 +41,14 @@ public class UserRequest {
 
 
     //constructor
+
+    public UserRequest() {
+        // Empty default constructor
+    }
     public UserRequest(String ipAddress, String username, String password) {
-        this.ipAddress = ipAddress;
         this.username = username;
         this.password = password;
+        this.ipAddress = ipAddress;
     }
 
 }

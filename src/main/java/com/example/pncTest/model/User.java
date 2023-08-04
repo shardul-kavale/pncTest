@@ -12,4 +12,10 @@ public class User {
         this.city=city;
     }
 
+    public String getUsername() {
+        return  username;
+    }
+    public String getCity() {
+        return  city;
+    }
 }

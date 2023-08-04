@@ -17,6 +17,23 @@ public class IPLookupPojo {
     public String as;
     public String query;
 
+    public IPLookupPojo(String status, String country, String countryCode, String region, String regionName, String city, String zip, String lat, String lon, String timezone, String isp, String org, String as, String query) {
+        this.status = status;
+        this.country = country;
+        this.countryCode = countryCode;
+        this.region = region;
+        this.regionName = regionName;
+        this.city = city;
+        this.zip = zip;
+        this.lat = lat;
+        this.lon = lon;
+        this.timezone = timezone;
+        this.isp = isp;
+        this.org = org;
+        this.as = as;
+        this.query = query;
+    }
+
     public String getCountry(){
         return country;
     }
