@@ -1,7 +1,10 @@
 package com.example.pncTest.controller;
 
 import com.example.pncTest.model.Error;
+import com.example.pncTest.model.enums.ErrorCode;
 import com.example.pncTest.model.UserRequest;
+import com.example.pncTest.model.enums.ErrorType;
+import com.example.pncTest.model.enums.Status;
 import com.example.pncTest.services.RegistrationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.*;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @RestController
 public class UserRegistrationController {
@@ -36,20 +40,19 @@ public class UserRegistrationController {
         //create objectMapper object for conversion of objects to json
         ObjectMapper objectMapper = new ObjectMapper();
 
-
         //Handle request body validation
         if (bindingResult.hasErrors()) {
 
+            //arraylist to store validation errors
             ArrayList<String> errorList = new ArrayList<>();
 
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors ) {
                 errorList.add(error.getDefaultMessage());
             }
-            String[] errorDescriptions = errorList.toArray(new String[errorList.size()]);
 
-            //create custom error object and add all validation errors to descriptions array
-            Error e = new Error("Failed",400,"ValidationError",errorDescriptions);
+            //create custom error object and add all validation errors
+            Error e = new Error(Status.FAILED, ErrorCode.VALIDATION_ERROR.getCode(), ErrorType.VALIDATION_ERROR, errorList);
 
             //convert object to json and return
             String jsonError = objectMapper.writeValueAsString(e);
@@ -73,7 +76,7 @@ public class UserRegistrationController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .headers(headers)
                     .body(objectMapper.writeValueAsString(
-                            new Error("Failed",500,"Server Error", "Something's wrong. Please try again later or ensure that you're entering a valid IP address")
+                            new Error(Status.FAILED,ErrorCode.SERVER_ERROR.getCode(),ErrorType.SERVER_ERROR, "Something's wrong on our end. Please try again later")
                          )
                     );
         }catch(IllegalArgumentException e){
@@ -83,18 +86,19 @@ public class UserRegistrationController {
                         .status(HttpStatus.BAD_REQUEST)
                         .headers(headers)
                         .body(objectMapper.writeValueAsString(
-                                        new Error("Failed",400,"ValidationError", "Please enter a valid IP Address")
+                                        new Error(Status.FAILED,ErrorCode.VALIDATION_ERROR.getCode(),ErrorType.VALIDATION_ERROR, "Please enter a valid IP Address")
                                 )
                         );
-            }else{
+            }else {
                 return ResponseEntity
-                        .status(HttpStatus.BAD_REQUEST)
+                        .status(HttpStatus.FORBIDDEN)
                         .headers(headers)
                         .body(objectMapper.writeValueAsString(
-                                        new Error("Failed",400,"Ineligible", "Sorry, only users in Canada are eligible to register!")
+                                        new Error(Status.FAILED,ErrorCode.INELIGIBLE_ERROR.getCode(),ErrorType.INELIGIBLE_ERROR, "Sorry, only users in Canada are eligible to register!")
                                 )
                         );
             }
+
         }
 
     }

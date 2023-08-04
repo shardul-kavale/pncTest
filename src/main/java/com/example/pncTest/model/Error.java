@@ -1,22 +1,28 @@
 package com.example.pncTest.model;
 
+import com.example.pncTest.model.enums.ErrorCode;
+import com.example.pncTest.model.enums.ErrorType;
+import com.example.pncTest.model.enums.Status;
+
+import java.util.List;
+
 public class Error {
-    public String status;
+    public Status status;
     public int errorCode;
-    public String errorType;
-    public String[] description;
+    public ErrorType errorType;
+    public List<String> description;
 
 
     //single error constructor
-    public Error(String status, int errorCode, String errorType, String description){
+    public Error(Status status, int errorCode, ErrorType errorType, String description){
         this.errorCode=errorCode;
         this.status=status;
         this.errorType=errorType;
-        this.description=new String[] {description};
+        this.description= List.of(description);
     }
 
     //multiple error constructor. (for multiple validation errors)
-    public Error(String status, int errorCode, String errorType, String[] description) {
+    public Error(Status status, int errorCode, ErrorType errorType, List<String> description) {
         this.errorCode=errorCode;
         this.status=status;
         this.errorType=errorType;

@@ -4,9 +4,8 @@ import com.example.pncTest.model.IPLookupPojo;
 import com.example.pncTest.model.User;
 import com.example.pncTest.model.UserRequest;
 import com.example.pncTest.model.ResponseData;
+import com.example.pncTest.model.enums.Status;
 import org.apache.commons.validator.routines.InetAddressValidator;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -54,6 +53,6 @@ public class RegistrationService {
         User u1 = new User(uuid, request.username, city);
 
         //pass the created user along with messages and status to the controller
-        return new ResponseData("Success", "User has been registered", u1);
+        return new ResponseData(Status.SUCCESS, "User has been registered", u1);
     }
 }
