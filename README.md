@@ -21,6 +21,38 @@ Pre-Interview assesment test for client - PNC Bank
 
 ## Usage
 
+**Two ways to test the application:** 
+1. **Browser :** Once you run the application head over to http://localhost:8080/ on your browser. The application is integrated with SwaggerUI so you can test it on the browser itself. Make sure to edit the sample input data prior for desire outcomes.
+2. **Postman :**  Make a POST request to http://localhost:8080/register after you set the JSON request body
+
+**Below are some sample JSON payloads you can test**
+
+Non-canadian IP:
+```
+{
+    "username" : "ShardulKavale",
+    "password" : "ABCD#123",
+    "ipAddress" : "122.144.233.222"
+}
+```
+
+Canadian IP:
+```
+{
+    "username" : "ShardulKavale",
+    "password" : "ABCD#123",
+    "ipAddress" : "104.144.52.255"
+}
+```
+
+Empty username and invalid password format:
+```
+{
+    "username" : "",
+    "password" : "123",
+    "ipAddress" : "104.144.52.255"
+}
+```
 
 
 ## Features
