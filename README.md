@@ -16,14 +16,16 @@ Pre-Interview assesment test for client - PNC Bank
 - [Contact](#contact)
 
 ## Installation
-
-
+1.Dowload zip or `git clone https://github.com/shardul-kavale/pncTest.git`
+2.Open IntelliJ IDEA
+3.Click Open Project and select the pncTest folder from the file explorer dialog box
+4.Click the run icon in the upper right corner
 
 ## Usage
 
 **Two ways to test the application:** 
-1. **Browser :** Once you run the application head over to http://localhost:8080/ on your browser. The application is integrated with SwaggerUI so you can test it on the browser itself. Make sure to edit the sample input data prior for desire outcomes.
-2. **Postman :**  Make a POST request to http://localhost:8080/register after you set the JSON request body
+1. **Browser - SwaggerUI :** Once you run the application head over to http://localhost:8080/ on your browser. The application is integrated with SwaggerUI so you can test it on the browser itself. Make sure to edit the sample input data prior for desired outcomes.
+2. **Postman :**  Run the application on your system. Make a POST request to http://localhost:8080/register after you set the JSON request body. You should see json response body based on the input payload.
 
 **Below are some sample JSON payloads you can test**
 
