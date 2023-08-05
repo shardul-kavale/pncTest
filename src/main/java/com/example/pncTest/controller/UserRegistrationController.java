@@ -3,6 +3,7 @@ package com.example.pncTest.controller;
 import com.example.pncTest.model.Error;
 import com.example.pncTest.model.enums.ErrorCode;
 import com.example.pncTest.model.UserRequest;
+import com.example.pncTest.model.enums.ErrorDescription;
 import com.example.pncTest.model.enums.ErrorType;
 import com.example.pncTest.model.enums.Status;
 import com.example.pncTest.services.RegistrationService;
@@ -47,11 +48,11 @@ public class UserRegistrationController {
                     .headers(headers)
                     .body(registrationService.registerUser(requestBody));
         } catch (IOException e) {
-            return handleServerError("Something's wrong on our end. Please try again later",headers);
+            return handleServerError(ErrorDescription.INTERNAL_SERVER_ERROR.getDescription(),headers);
         } catch (IllegalArgumentException e) {
-            return handleValidationError("Please enter a valid IP Address", headers);
+            return handleValidationError(ErrorDescription.INVALID_IP.getDescription(), headers);
         } catch (SecurityException e) {
-            return handleIneligibleError("Sorry, only users in Canada are eligible to register!", headers);
+            return handleIneligibleError(ErrorDescription.INELIGIBLE_ERROR.getDescription(), headers);
         }
     }
 

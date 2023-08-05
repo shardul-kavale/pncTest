@@ -4,6 +4,7 @@ package com.example.pncTest.controller;
 import com.example.pncTest.model.ResponseData;
 import com.example.pncTest.model.User;
 import com.example.pncTest.model.UserRequest;
+import com.example.pncTest.model.enums.ErrorDescription;
 import com.example.pncTest.model.enums.ErrorType;
 import com.example.pncTest.model.enums.Status;
 import com.example.pncTest.services.RegistrationService;
@@ -72,7 +73,7 @@ public class UserRegistrationControllerTest {
                 .andExpect(jsonPath("$.status").value(Status.FAILED.toString()))
                 .andExpect(jsonPath("$.errorCode").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.errorType").value(ErrorType.VALIDATION_ERROR.toString()))
-                .andExpect(jsonPath("$.description[0]").value("Please enter a valid IP Address"));
+                .andExpect(jsonPath("$.description[0]").value(ErrorDescription.INVALID_IP.getDescription()));
     }
 
     @Test
@@ -92,7 +93,7 @@ public class UserRegistrationControllerTest {
                 .andExpect(jsonPath("$.status").value(Status.FAILED.toString()))
                 .andExpect(jsonPath("$.errorCode").value(HttpStatus.FORBIDDEN.value()))
                 .andExpect(jsonPath("$.errorType").value(ErrorType.INELIGIBLE_ERROR.toString()))
-                .andExpect(jsonPath("$.description[0]").value("Sorry, only users in Canada are eligible to register!"));
+                .andExpect(jsonPath("$.description[0]").value(ErrorDescription.INELIGIBLE_ERROR.getDescription()));
     }
 
     @Test
@@ -107,7 +108,7 @@ public class UserRegistrationControllerTest {
                 .andExpect(jsonPath("$.status").value(Status.FAILED.toString()))
                 .andExpect(jsonPath("$.errorCode").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.errorType").value(ErrorType.VALIDATION_ERROR.toString()))
-                .andExpect(jsonPath("$.description[0]").value("The username cannot be empty."));
+                .andExpect(jsonPath("$.description[0]").value(ErrorDescription.MISSING_USERNAME.getDescription()));
     }
 
 
