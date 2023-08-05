@@ -16,10 +16,10 @@ Pre-Interview assesment test for client - PNC Bank
 - [Contact](#contact)
 
 ## Installation
-1.Dowload zip or `git clone https://github.com/shardul-kavale/pncTest.git`
-2.Open IntelliJ IDEA
-3.Click Open Project and select the pncTest folder from the file explorer dialog box
-4.Click the run icon in the upper right corner
+1. Dowload zip or `git clone https://github.com/shardul-kavale/pncTest.git`
+2. Open IntelliJ IDEA
+3. Click Open Project and select the pncTest folder from the file explorer dialog box
+4. Click the run icon in the upper right corner
 
 ## Usage
 
